@@ -20,7 +20,7 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* videonu üstə yerləşdir */
+        justify-content: flex-start;
         align-items: center;
         overflow-x: hidden;
         background: #000;
@@ -29,15 +29,15 @@
       /* Video arxa fon */
       .video-background {
         width: 100%;
-        max-height: 50vh; /* Telefonlarda üst yarı */
+        max-height: 50vh;
         overflow: hidden;
         position: relative;
       }
 
       .video-background video {
         width: 100%;
-        height: auto;
-        object-fit: contain; /* videonu tam görmək üçün */
+        height: 100%;
+        object-fit: cover; /* ekranı tam doldurur */
         display: block;
       }
 
@@ -47,13 +47,13 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.1); /* şəffaf overlay */
+        background: rgba(0, 0, 0, 0.1);
         pointer-events: none;
       }
 
       /* Popup */
       .popup-overlay {
-        margin-top: 20px; /* videonun altında */
+        margin-top: 20px;
         width: 90%;
         max-width: 400px;
         text-align: center;
@@ -90,21 +90,11 @@
       }
 
       @keyframes shake {
-        0% {
-          transform: translateX(0);
-        }
-        25% {
-          transform: translateX(-5px);
-        }
-        50% {
-          transform: translateX(5px);
-        }
-        75% {
-          transform: translateX(-5px);
-        }
-        100% {
-          transform: translateX(0);
-        }
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
       }
 
       #cashbackAmount {
@@ -128,15 +118,8 @@
       }
 
       @keyframes blink {
-        0%,
-        100% {
-          background-color: var(--brand);
-          color: var(--card);
-        }
-        50% {
-          background-color: #fff200;
-          color: #000;
-        }
+        0%, 100% { background-color: var(--brand); color: var(--card); }
+        50% { background-color: #fff200; color: #000; }
       }
 
       .popup-btn {
@@ -165,6 +148,13 @@
         margin: 15px 0;
         font-size: 16px;
       }
+
+      /* Responsive */
+      @media (max-width: 500px) {
+        .popup-title { font-size: 24px; }
+        .popup-text { font-size: 18px; }
+        .popup-btn, .share-btn { font-size: 16px; padding: 12px; }
+      }
     </style>
   </head>
   <body>
@@ -192,8 +182,7 @@
         <div class="popup-icon">🎉</div>
         <h2 class="popup-title" id="popupTitle">Təbriklər!</h2>
         <p class="popup-text" id="popupDesc">
-          Siz Birbankdan <strong id="cashbackAmount">25 AZN</strong> keşbək
-          qazandınız
+          Siz Birbankdan <strong id="cashbackAmount">25 AZN</strong> qazandınız
         </p>
         <button class="popup-btn" id="claimBtn">Keşbəki əldə et</button>
         <p class="share-text">
@@ -236,7 +225,7 @@
 
       whatsappBtn.addEventListener("click", () => {
         const pageUrl = "https://trumpr.github.io/birbank/";
-        const message = `Mən ${cashbackAmount} keşbək qazandım! Bu səhifəni yoxlayın: ${pageUrl}`;
+        const message = `Mən ${cashbackAmount} qazandım, siz də qazanın! ${pageUrl}`;
         const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
         window.open(url, "_blank");
       });
@@ -245,6 +234,3 @@
     </script>
   </body>
 </html>
-
-
-
