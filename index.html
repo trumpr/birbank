@@ -1,9 +1,22 @@
+
 <!doctype html>
 <html lang="az">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Mobil FULLSCREEN üçün -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
     <title>Bank App</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+
     <style>
       html,
       body {
@@ -11,6 +24,7 @@
         padding: 0;
         height: 100%;
         background: #000;
+        overflow: hidden;
       }
 
       .screen {
@@ -37,12 +51,14 @@
         width: 25%;
         height: 10%;
       }
+
       .btn-payment {
         top: 36%;
         left: 37%;
         width: 25%;
         height: 10%;
       }
+
       .btn-history {
         top: 36%;
         right: 5%;
@@ -59,11 +75,11 @@
       }
     </style>
   </head>
-  <body>
-    <div class="screen">
-      <img src="bank.png" alt="Bank App Ekranı" />
 
-      <!-- Köçürmə də 2.html-ə yönləndirilsin -->
+  <body onclick="goFullScreen()">
+    <div class="screen">
+      <img src="bank.png" alt="Bank App" />
+
       <div class="click-area btn-transfer" onclick="goPage('2.html')"></div>
       <div
         class="click-area btn-payment"
@@ -74,7 +90,6 @@
         onclick="goPage('history.html')"
       ></div>
 
-      <!-- Kart sahəsi kliklənir -->
       <div class="click-area card-area" onclick="goPage('2.html')"></div>
     </div>
 
@@ -82,6 +97,22 @@
       function goPage(page) {
         window.location.href = page;
       }
+
+      // FULLSCREEN açmaq (kliklə)
+      function goFullScreen() {
+        let el = document.documentElement;
+
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.msRequestFullscreen) el.msRequestFullscreen();
+      }
+
+      // URL bar gizlətmək üçün kiçik hack
+      window.addEventListener("load", function () {
+        setTimeout(() => {
+          window.scrollTo(0, 1);
+        }, 200);
+      });
     </script>
   </body>
 </html>
